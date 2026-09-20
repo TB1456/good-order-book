@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หนังสือสั่งดี - หนังสือแสดงเจตนารมณ์ล่วงหน้า (Living Will / Advance Directive)</title>
+  <meta name="description" content="หนังสือแสดงเจตนารมณ์ในการไม่รับการรักษาที่เป็นไปเพียงเพื่อยืดการตายในวาระสุดท้ายของชีวิต (ตามมาตรา 12 พ.ร.บ.สุขภาพแห่งชาติ) สร้างเอกสาร PDF ฟรี 100% ปลอดภัยบนเครื่องของคุณ">
+  
+  <!-- OpenGraph / Social Media Meta -->
+  <meta property="og:title" content="หนังสือสั่งดี - หนังสือแสดงเจตนารมณ์ล่วงหน้า">
+  <meta property="og:description" content="มีสติ | มีความต้องการ | มีการวางแผน | เพื่อกลับคืนสู่ธรรมชาติอย่างสงบ">
+  <meta property="og:type" content="website">
+
+  <!-- Cache Control (Prevent stale assets) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=20260920_0840">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title" id="appTitle">หนังสือ “สั่งดี”</h1>
+          <p class="brand-subtitle" id="appSubtitle">มีสติ | มีความต้องการ | มีการวางแผน | เพื่อกลับคืนสู่ธรรมชาติอย่างสงบ</p>
+          <span id="authorTag" style="display:none;">บันทึกโดย คุณ BIRD</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="badge-privacy" id="privacyBadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span class="badge-text-main">ความปลอดภัย 100%</span>
+          <span class="badge-text-sub"> (ประมวลผลบนเครื่องของคุณ ไม่เก็บข้อมูลลงเซิร์ฟเวอร์)</span>
+        </div>
+        <div class="lang-segmented-control" role="group" aria-label="Language selector">
+          <button type="button" class="lang-seg-btn active" id="btnLangTh" data-lang="th" aria-pressed="true">
+            <span class="lang-flag">🇹🇭</span> ไทย
+          </button>
+          <button type="button" class="lang-seg-btn" id="btnLangEn" data-lang="en" aria-pressed="false">
+            <span class="lang-flag">🇬🇧</span> English
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    <div class="main-grid">
+
+      <!-- Column 1 (Left): The Story & Principles -->
+      <aside class="story-column" id="storyColumn">
+        <div class="mobile-jump-bar story-jump">
+          <a href="#formColumn" class="mobile-jump-btn" id="jumpToFormBtn">
+            ✏️ เริ่มกรอกแบบฟอร์มทำเอกสาร ↓
+          </a>
+        </div>
+        <article class="story-card">
+          <div id="storyContent">
+            <!-- Rendered by app.js -->
+          </div>
+          <div id="lawContent" style="padding: 0 2rem 2rem;">
+            <!-- Rendered by app.js -->
+          </div>
+        </article>
+      </aside>
+
+      <!-- Column 2 (Right): Interactive Form -->
+      <section class="form-column" id="formColumn">
+        <div class="mobile-jump-bar form-jump">
+          <a href="#storyColumn" class="mobile-jump-link" id="jumpToStoryBtn">
+            📖 อ่านที่มาและหลักการ 6 ข้อ ↑
+          </a>
+        </div>
+        <div class="form-card">
+          <!-- Form Header & Progress -->
+          <div class="form-header">
+            <div class="step-tracker">
+              <div>
+                <h2 id="formTitle" style="font-size: 1.35rem; color: #0f172a; font-weight: 700;">แบบฟอร์มจัดทำ “หนังสือสั่งดี”</h2>
+                <p id="formSubtitle" style="font-size: 0.88rem; color: #64748b;">กรอกข้อมูลด้านล่างเพื่อสร้างไฟล์ PDF สำหรับนำไปพิมพ์และเซ็นชื่อ</p>
+              </div>
+              <span class="step-badge" id="stepIndicator">ขั้นตอนที่ 1 จาก 10</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="progressBar" style="width: 10%;"></div>
+            </div>
+          </div>
+
+          <!-- Dynamic Form Body -->
+          <div class="form-body" id="formStepsContainer">
+            <!-- Injected by app.js -->
+          </div>
+
+          <!-- Form Navigation Footer -->
+          <div class="form-footer">
+            <div class="footer-nav-left">
+              <button type="button" class="btn btn-secondary btn-first-step" id="firstStepBtn" disabled title="กลับไปหน้าแรก (ขั้นตอนที่ 1)">
+                ⏮ หน้าแรก
+              </button>
+              <button type="button" class="btn btn-secondary" id="prevBtn" disabled>
+                ← ย้อนกลับ
+              </button>
+            </div>
+            <div class="footer-nav-right">
+              <button type="button" class="btn btn-primary" id="nextBtn">
+                ถัดไป →
+              </button>
+              <button type="button" class="btn btn-generate" id="generateBtn" style="display: none;">
+                สร้างเอกสาร PDF (ฟรี)
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Sticky Bottom Ad Banner -->
+  <div class="ad-bottom-banner" id="bottomBanner">
+    <div class="ad-wrapper">
+      <div id="bannerAdContent">
+        <!-- Rendered by app.js or Google AdSense -->
+      </div>
+      <button class="ad-close-btn" id="closeBannerBtn" type="button" title="ย่อ / ปิดแบนเนอร์">✕</button>
+    </div>
+  </div>
+
+  <!-- Progress Overlay when Generating PDF -->
+  <div class="generation-overlay" id="generationOverlay">
+    <div class="spinner"></div>
+    <div class="generation-text" id="generationStatus">กำลังจัดเตรียมและวาดหน้าเอกสาร (1/10)...</div>
+    <div class="generation-subtext">ประมวลผลบนเครื่องของคุณแบบออฟไลน์ 100% ปลอดภัยและรวดเร็ว</div>
+  </div>
+
+  <!-- After Download Modal Dialog -->
+  <div class="modal-overlay" id="afterDownloadModal">
+    <div class="modal-card">
+      <div class="modal-icon-wrap">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3 class="modal-title" id="modalTitle">สร้างเอกสาร PDF เรียบร้อยแล้ว!</h3>
+      <p class="modal-subtitle" id="modalSubtitle">ระบบได้จัดเตรียมไฟล์และดาวน์โหลดลงในอุปกรณ์ของท่านเรียบร้อยแล้ว</p>
+
+      <!-- Next Steps Checklist -->
+      <div class="next-steps-card">
+        <div class="next-steps-title" id="modalStepsTitle">ขั้นตอนสำคัญถัดไป:</div>
+        <ul class="step-checklist">
+          <li id="modalStep1">1. ตรวจสอบไฟล์ในโฟลเดอร์ดาวน์โหลด (Downloads) บนอุปกรณ์ของท่าน</li>
+          <li id="modalStep2">2. พิมพ์ (Print) เอกสารทั้ง 10 หน้าออกมาลงกระดาษ A4</li>
+          <li id="modalStep3">3. ใช้ปากกาลงลายมือชื่อรับรองที่กรอบด้านล่างของ 'ทุกหน้า'</li>
+          <li id="modalStep4">4. ให้พยาน 2 ท่านลงลายมือชื่อในหน้า 8 และบอกกล่าวให้ครอบครัวทราบ</li>
+        </ul>
+      </div>
+
+      <!-- Sponsor / AdSense Slot inside Modal -->
+      <div class="ad-modal-slot">
+        <div style="font-size: 0.72rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem;" id="modalSponsorTag">ผู้สนับสนุนโครงการ / Sponsorship</div>
+        <div id="modalAdContent">
+          <!-- Google AdSense or Mock Ad -->
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="closeModalBtn" style="width: 100%;">
+        <span id="modalCloseBtnText">ปิดหน้าต่างนี้</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Config & Application Scripts -->
+  <script src="config.js?v=20260920_0840"></script>
+  <script src="js/analytics.js?v=20260920_0840"></script>
+  <script src="js/translations.js?v=20260920_0840"></script>
+  <script src="js/pdfEngine.js?v=20260920_0840"></script>
+  <script src="js/app.js?v=20260920_0840"></script>
+</body>
+</html>

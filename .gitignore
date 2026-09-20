@@ -1,0 +1,11 @@
+# macOS System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Raw design scans and loose PDFs (production assets are in assets/pages/)
+*.pdf
+หนังสือสั่งดี-*.jpg
+*.log
