@@ -59,11 +59,11 @@
 2. กด **New +** -> เลือก **Static Site**
 3. เชื่อมต่อกับ GitHub Repository นี้
 4. ตั้งค่า:
-   - **Name**: `good-order-book` (หรือชื่อตามต้องการ)
+   - **Name**: `goodorderbook-livingwill`
    - **Branch**: `main`
    - **Build Command**: เว้นว่างไว้
    - **Publish Directory**: `.` (จุด หมายถึง Root Directory)
-5. กด **Create Static Site** เว็บไซต์จะออนไลน์พร้อมใช้งานทันที
+5. กด **Create Static Site** เว็บไซต์จะออนไลน์พร้อมใช้งานทันทีที่ `https://goodorderbook-livingwill.onrender.com`
 
 ---
 
