@@ -10,21 +10,23 @@ const Analytics = {
     const gaId = window.CONFIG && window.CONFIG.GA_MEASUREMENT_ID;
     if (gaId && gaId.trim() !== "") {
       try {
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
-        document.head.appendChild(script);
+        if (!window.gtag && !document.querySelector(`script[src*="${encodeURIComponent(gaId)}"]`)) {
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+          document.head.appendChild(script);
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          window.dataLayer.push(arguments);
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            window.dataLayer.push(arguments);
+          }
+          window.gtag = gtag;
+          gtag("js", new Date());
+          gtag("config", gaId, {
+            send_page_view: true,
+            anonymize_ip: true
+          });
         }
-        window.gtag = gtag;
-        gtag("js", new Date());
-        gtag("config", gaId, {
-          send_page_view: true,
-          anonymize_ip: true
-        });
 
         this.initialized = true;
         console.log("[Analytics] Initialized with ID:", gaId);

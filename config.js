@@ -8,7 +8,7 @@
 const CONFIG = {
   // รหัส Google Analytics 4 (เช่น 'G-ABC1234XYZ')
   // ปล่อยว่างไว้หากยังไม่ได้เชื่อมต่อระบบ
-  GA_MEASUREMENT_ID: "",
+  GA_MEASUREMENT_ID: "G-F9M2W4QV1L",
 
   // การตั้งค่า Google AdSense
   ADSENSE: {
