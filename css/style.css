@@ -54,22 +54,19 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0.75rem 1.5rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "icon title    privacy lang"
+    "icon subtitle privacy lang";
+  column-gap: 0.85rem;
+  row-gap: 0.15rem;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap; /* Desktop header will NEVER wrap */
-  gap: 1.25rem;
-}
-
-.brand-group {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  min-width: 0;
-  flex: 1 1 auto;
 }
 
 .brand-icon {
+  grid-area: icon;
   width: 44px;
   height: 44px;
   background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
@@ -83,30 +80,30 @@ body {
 }
 
 .brand-title {
+  grid-area: title;
   font-size: 1.35rem;
   font-weight: 700;
   color: #0f172a;
   letter-spacing: -0.01em;
+  line-height: 1.25;
+  margin: 0;
   white-space: nowrap;
+  align-self: end;
 }
 
 .brand-subtitle {
+  grid-area: subtitle;
   font-size: 0.82rem;
   color: #64748b;
   font-weight: 400;
+  line-height: 1.35;
+  margin: 0;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  flex: 0 0 auto; /* Pinned firmly on the right */
+  align-self: start;
 }
 
 .badge-privacy {
+  grid-area: privacy;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -118,6 +115,7 @@ body {
   font-size: 0.8rem;
   font-weight: 500;
   white-space: nowrap;
+  margin-right: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -129,6 +127,7 @@ body {
 
 /* Segmented Language Selector (Dual Button) */
 .lang-segmented-control {
+  grid-area: lang;
   display: inline-flex;
   align-items: center;
   background-color: #f1f5f9;
@@ -232,9 +231,26 @@ body {
 
 .story-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.35rem 0.6rem;
   font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 0.35rem;
+}
+
+.story-meta-author {
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.story-meta-dot {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+.story-meta-desc {
   color: #64748b;
 }
 
@@ -873,75 +889,86 @@ body {
     font-size: 16px !important;
   }
 
-  /* Header Layout on Mobile: Clean 2-row layout */
+  /* Header Layout on Mobile: Clean 3-row layout with zero overlap */
   .header-content {
-    padding: 0.65rem 1rem;
+    padding: 0.65rem 0.85rem;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    row-gap: 0.55rem;
-    column-gap: 0.5rem;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "icon     title    lang"
+      "subtitle subtitle subtitle"
+      "privacy  privacy  privacy";
+    column-gap: 0.55rem;
+    row-gap: 0.45rem;
     align-items: center;
   }
 
-  .brand-group {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    gap: 0.6rem;
-    min-width: 0;
-  }
-
   .brand-icon {
-    width: 38px;
-    height: 38px;
+    grid-area: icon;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
-    flex-shrink: 0;
+    align-self: center;
   }
 
   .brand-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .brand-title {
+    grid-area: title;
     font-size: 1.15rem;
     line-height: 1.25;
+    margin: 0;
+    align-self: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .brand-subtitle {
-    font-size: 0.72rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .header-actions {
-    display: contents; /* Allows children to sit directly in grid cells */
-  }
-
   .lang-segmented-control {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
+    grid-area: lang;
     justify-self: end;
+    padding: 2px;
+    align-self: center;
   }
 
   .lang-seg-btn {
-    padding: 0.35rem 0.65rem;
+    min-width: 0;
+    padding: 0.35rem 0.6rem;
     font-size: 0.82rem;
     gap: 0.25rem;
   }
 
+  .lang-flag {
+    font-size: 0.92rem;
+  }
+
+  .brand-subtitle {
+    grid-area: subtitle;
+    font-size: 0.76rem;
+    color: #475569;
+    line-height: 1.45;
+    margin: 0;
+    white-space: normal; /* Wraps naturally on mobile without cutting off */
+    text-align: center;
+    background: #f8fafc;
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    align-self: center;
+  }
+
   .badge-privacy {
-    grid-column: 1 / 3;
-    grid-row: 2 / 3;
+    grid-area: privacy;
     width: 100%;
+    margin-right: 0;
     justify-content: center;
     font-size: 0.75rem;
     padding: 0.35rem 0.75rem;
+    align-self: center;
   }
 
   .badge-privacy .badge-text-sub {
@@ -1132,13 +1159,24 @@ body {
 
 /* Extra Small Screens (<= 380px, e.g. iPhone SE) */
 @media (max-width: 380px) {
+  .header-content {
+    padding: 0.5rem 0.65rem;
+    column-gap: 0.4rem;
+    row-gap: 0.4rem;
+  }
+
   .brand-title {
     font-size: 1.05rem;
   }
 
   .lang-seg-btn {
+    padding: 0.28rem 0.45rem;
+    font-size: 0.76rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.72rem;
     padding: 0.3rem 0.5rem;
-    font-size: 0.78rem;
   }
 
   .badge-privacy {

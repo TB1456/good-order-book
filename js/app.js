@@ -207,9 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="story-header">
         <h2>${s.title}</h2>
         <div class="story-meta">
-          <span>${t.authorTag}</span>
-          <span>•</span>
-          <span>${state.currentLang === "th" ? "บันทึกความทรงจำและเจตนารมณ์" : "Memoir & Advance Will"}</span>
+          <span class="story-meta-author">${t.authorTag}</span>
+          <span class="story-meta-dot">•</span>
+          <span class="story-meta-desc">${state.currentLang === "th" ? "บันทึกความทรงจำและเจตนารมณ์" : "Memoir & Advance Will"}</span>
         </div>
       </div>
       <div class="story-body">
