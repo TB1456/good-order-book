@@ -1103,16 +1103,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!cfg) return;
 
     if (!cfg.ENABLE_MOCK_BANNER && cfg.CLIENT_ID && cfg.CLIENT_ID.trim() !== "") {
-      // โหลด Google AdSense จริง
+      // โหลด Google AdSense จริง (หากยังไม่มีแท็กใน head)
       try {
-        const adScript = document.createElement("script");
-        adScript.async = true;
-        adScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.CLIENT_ID}`;
-        adScript.crossOrigin = "anonymous";
-        document.head.appendChild(adScript);
+        if (!document.querySelector(`script[src*="${cfg.CLIENT_ID}"]`)) {
+          const adScript = document.createElement("script");
+          adScript.async = true;
+          adScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${cfg.CLIENT_ID}`;
+          adScript.crossOrigin = "anonymous";
+          document.head.appendChild(adScript);
+        }
 
         // Sticky Bottom Banner จริง
-        if (cfg.BOTTOM_BANNER_SLOT) {
+        if (cfg.BOTTOM_BANNER_SLOT && cfg.BOTTOM_BANNER_SLOT.trim() !== "") {
+          if (elements.bottomBanner) elements.bottomBanner.style.display = "block";
           elements.bannerAdContent.innerHTML = `
             <ins class="adsbygoogle"
                  style="display:inline-block;width:728px;height:90px"
@@ -1120,11 +1123,17 @@ document.addEventListener("DOMContentLoaded", () => {
                  data-ad-slot="${cfg.BOTTOM_BANNER_SLOT}"></ins>
           `;
           (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } else {
+          // หากยังไม่ได้กำหนด Ad Slot ID ให้ซ่อนแถบล่างไว้ก่อนเพื่อให้หน้าเว็บสะอาดและเรียบร้อย
+          if (elements.bottomBanner) {
+            elements.bottomBanner.style.display = "none";
+          }
         }
       } catch (e) {
         console.warn("[AdSense] Load error:", e);
       }
     } else {
+      if (elements.bottomBanner) elements.bottomBanner.style.display = "block";
       // Mock Banner สวยงามสำหรับช่วงพัฒนาระบบ
       elements.bannerAdContent.innerHTML = `
         <div class="ad-mock-slot">
@@ -1137,7 +1146,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderModalAd() {
     const cfg = window.CONFIG && window.CONFIG.ADSENSE;
+    const modalSlotWrapper = document.querySelector(".ad-modal-slot");
     if (cfg && !cfg.ENABLE_MOCK_BANNER && cfg.CLIENT_ID && cfg.AFTER_DOWNLOAD_MODAL_SLOT) {
+      if (modalSlotWrapper) modalSlotWrapper.style.display = "block";
       elements.modalAdContent.innerHTML = `
         <ins class="adsbygoogle"
              style="display:inline-block;width:300px;height:250px"
@@ -1145,7 +1156,11 @@ document.addEventListener("DOMContentLoaded", () => {
              data-ad-slot="${cfg.AFTER_DOWNLOAD_MODAL_SLOT}"></ins>
       `;
       (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } else if (cfg && !cfg.ENABLE_MOCK_BANNER && (!cfg.AFTER_DOWNLOAD_MODAL_SLOT || cfg.AFTER_DOWNLOAD_MODAL_SLOT.trim() === "")) {
+      // ซ่อนกล่องโฆษณาในโมดอล หากยังไม่มี Ad Slot
+      if (modalSlotWrapper) modalSlotWrapper.style.display = "none";
     } else {
+      if (modalSlotWrapper) modalSlotWrapper.style.display = "block";
       elements.modalAdContent.innerHTML = `
         <div class="ad-mock-slot" style="min-height: 120px; flex-direction: column;">
           <span class="ad-mock-tag">Google AdSense • Sponsor Space</span>

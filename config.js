@@ -13,7 +13,7 @@ const CONFIG = {
   // การตั้งค่า Google AdSense
   ADSENSE: {
     // ใส่ Client ID เช่น 'ca-pub-1234567890123456'
-    CLIENT_ID: "",
+    CLIENT_ID: "ca-pub-8289752204725672",
 
     // Slot ID สำหรับแถบโฆษณาด้านล่างจอ (Sticky Bottom Banner)
     BOTTOM_BANNER_SLOT: "",
@@ -23,7 +23,7 @@ const CONFIG = {
 
     // เปิดใช้งานโหมดจำลอง (Mock mode) ระหว่างที่ยังรออนุมัติจาก AdSense
     // หากเปลี่ยนเป็น false ระบบจะโหลดสคริปต์ Google AdSense จริง
-    ENABLE_MOCK_BANNER: true
+    ENABLE_MOCK_BANNER: false
   },
 
   // ข้อมูลเว็บไซต์
