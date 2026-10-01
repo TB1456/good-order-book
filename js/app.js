@@ -225,6 +225,35 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitBtnText = document.getElementById("coffeeSubmitBtnText");
         const price = (typeof selectedCoffeePrice !== "undefined") ? selectedCoffeePrice : 40;
         if (submitBtnText) submitBtnText.textContent = `${state.currentLang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment"} ฿${price}`;
+
+        // Column 3 Coffee Texts
+        setTxt("colCoffeePillText", c.pillText);
+        setTxt("colCoffeeTitle", c.title);
+        setTxt("colCoffeeSubtitle", c.subtitle);
+        setTxt("colCoffeeSelectLabel", c.selectLabel);
+        setTxt("colCup1Name", c.cups1);
+        setTxt("colCup2Name", c.cups2);
+        setTxt("colCup3Name", c.cups3);
+        setTxt("colCup4Name", c.cups4);
+        setTxt("colCup5Name", c.cups5);
+        setTxt("colCupOtherName", c.cupsOther);
+        setTxt("colCupOtherPrice", c.customPrice);
+        setTxt("colCoffeeDonorNameLabel", c.donorNameLabel);
+        setTxt("colCoffeeDonorMessageLabel", c.donorMsgLabel);
+        setTxt("colCoffeeQRBadge", c.qrBadge);
+        setTxt("colCoffeeAmountLabel", c.amountLabel);
+        setTxt("colCoffeeQRNote", c.qrNote);
+        setTxt("colCoffeeBankName", c.bankName);
+        setTxt("colCoffeeBankType", c.bankType);
+        setTxt("colCoffeeBankSecure", c.bankSecure);
+        setTxt("colCoffeeDoneBtnText", c.doneBtn);
+
+        const colDonorName = document.getElementById("colCoffeeDonorName");
+        if (colDonorName) colDonorName.placeholder = c.donorNamePlaceholder;
+        const colDonorMsg = document.getElementById("colCoffeeDonorMessage");
+        if (colDonorMsg) colDonorMsg.placeholder = c.donorMsgPlaceholder;
+        const colCustomAmount = document.getElementById("colCoffeeCustomAmount");
+        if (colCustomAmount) colCustomAmount.placeholder = c.customPlaceholder;
       }
 
       // เรนเดอร์ขั้นตอนปัจจุบัน
@@ -1215,6 +1244,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const COFFEE_PRICE_PER_CUP = 40;
 
   window.openCoffeeModal = function() {
+    const colCard = document.getElementById("coffeeSectionCard");
+    if (colCard) {
+      colCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      colCard.classList.remove("highlight");
+      void colCard.offsetWidth; // trigger reflow
+      colCard.classList.add("highlight");
+      setTimeout(() => {
+        colCard.classList.remove("highlight");
+      }, 3000);
+      return;
+    }
+
     selectCoffeeCount(1, 40);
     const modal = document.getElementById("coffeeModal");
     if (!modal) return;
@@ -1338,6 +1379,101 @@ document.addEventListener("DOMContentLoaded", () => {
     // Track analytics event
     if (typeof window.Analytics !== "undefined" && window.Analytics.track) {
       window.Analytics.track("coffee_completed", { amount: selectedCoffeePrice, donor: name || "anonymous" });
+    }
+
+    // Reset inputs
+    if (donorNameInput) donorNameInput.value = "";
+    if (donorMsgInput) donorMsgInput.value = "";
+    if (customAmountInput) customAmountInput.value = "";
+  };
+
+  /* --------------------------------------------------------------------------
+     COLUMN 3 COFFEE DONATION HANDLERS
+     -------------------------------------------------------------------------- */
+  let selectedColCoffeeCups = 1;
+  let selectedColCoffeePrice = 40;
+
+  window.selectColCoffeeCount = function(cups, price) {
+    selectedColCoffeeCups = cups;
+    selectedColCoffeePrice = price;
+
+    const buttons = document.querySelectorAll(".col-coffee-btn");
+    buttons.forEach((btn, index) => {
+      if (index === cups - 1 && cups <= 5) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    const customWrap = document.getElementById("colCoffeeCustomInputContainer");
+    if (customWrap) customWrap.style.display = "none";
+
+    const displayAmount = document.getElementById("colCoffeeDisplayAmount");
+    if (displayAmount) displayAmount.textContent = `฿${price}`;
+  };
+
+  window.selectColCoffeeOther = function() {
+    const buttons = document.querySelectorAll(".col-coffee-btn");
+    buttons.forEach((btn, index) => {
+      if (index === 5) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    const customWrap = document.getElementById("colCoffeeCustomInputContainer");
+    if (customWrap) {
+      customWrap.style.display = "block";
+      const customInput = document.getElementById("colCoffeeCustomAmount");
+      if (customInput) {
+        customInput.focus();
+        updateColCustomCoffeeAmount();
+      }
+    }
+  };
+
+  window.updateColCustomCoffeeAmount = function() {
+    const input = document.getElementById("colCoffeeCustomAmount");
+    const val = input ? parseInt(input.value, 10) : 40;
+    selectedColCoffeePrice = (val && val > 0) ? val : 40;
+
+    const displayAmount = document.getElementById("colCoffeeDisplayAmount");
+    if (displayAmount) displayAmount.textContent = `฿${selectedColCoffeePrice}`;
+  };
+
+  window.confirmColCoffeeTransfer = function() {
+    // จุดพลุเฉลิมฉลอง (Confetti celebration)
+    if (typeof confetti === "function") {
+      confetti({
+        particleCount: 140,
+        spread: 85,
+        origin: { y: 0.6 },
+        colors: ["#ffd700", "#f59e0b", "#10b981", "#ffffff", "#0284c7"]
+      });
+    }
+
+    const donorNameInput = document.getElementById("colCoffeeDonorName");
+    const donorMsgInput = document.getElementById("colCoffeeDonorMessage");
+    const customAmountInput = document.getElementById("colCoffeeCustomAmount");
+
+    const name = donorNameInput ? donorNameInput.value.trim() : "";
+    const lang = state ? state.currentLang : "th";
+    const t = window.TRANSLATIONS[lang].coffee;
+
+    let toastMessage = t ? t.toastThanks : "กราบขอบพระคุณที่ร่วมเลี้ยงกาแฟครับ! ☕✨";
+    if (name) {
+      toastMessage = (lang === "th")
+        ? `กราบขอบพระคุณ คุณ${name} ที่ร่วมเลี้ยงกาแฟทีมงานหนังสือสั่งดีครับ! ☕✨`
+        : `Thank you so much, ${name}, for supporting Good Order Book! ☕✨`;
+    }
+
+    showCoffeeToast(toastMessage);
+
+    // Track analytics event
+    if (typeof window.Analytics !== "undefined" && window.Analytics.track) {
+      window.Analytics.track("coffee_col_completed", { amount: selectedColCoffeePrice, donor: name || "anonymous" });
     }
 
     // Reset inputs
