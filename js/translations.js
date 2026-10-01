@@ -204,6 +204,38 @@ const TRANSLATIONS = {
       adLabel: "โฆษณาผู้สนับสนุน",
       closeBtn: "ย่อแบนเนอร์",
       mockText: "พื้นที่สนับสนุนโครงการ 'หนังสือสั่งดี' เพื่อให้ทุกคนเข้าถึงได้ฟรีตลอดไป"
+    },
+
+    coffee: {
+      btnLabel: "เลี้ยงกาแฟ",
+      btnBadge: "40฿",
+      pillText: "สนับสนุนผู้พัฒนา",
+      title: "เลี้ยงกาแฟ \"หนังสือสั่งดี\"",
+      subtitle: "เว็บไซต์หนังสือสั่งดีเปิดให้สร้างเอกสารฟรี 100% ปลอดภัยบนเครื่องของคุณ ร่วมเลี้ยงกาแฟทีมงานแก้วละ 40 บาท เพื่อเป็นกำลังใจและสนับสนุนค่าดูแลระบบครับ",
+      selectLabel: "☕ เลือกจำนวนแก้วกาแฟ (แก้วละ 40 บาท):",
+      cups1: "1 แก้ว",
+      cups2: "2 แก้ว",
+      cups3: "3 แก้ว",
+      cups4: "4 แก้ว",
+      cups5: "5 แก้ว",
+      cupsOther: "อื่นๆ",
+      customPrice: "ระบุเอง",
+      customPlaceholder: "ระบุจำนวนเงิน (บาท)",
+      donorNameLabel: "ชื่อผู้สนับสนุน (ไม่ระบุก็ได้):",
+      donorNamePlaceholder: "เช่น คุณเบิร์ด, ผู้ไม่ประสงค์ออกนาม",
+      donorMsgLabel: "ข้อความส่งกำลังใจ (ไม่ระบุก็ได้):",
+      donorMsgPlaceholder: "เช่น ขอให้โครงการมีประโยชน์ต่อผู้คนสืบไปครับ",
+      submitBtn: "ไปที่หน้าสแกนจ่าย",
+      qrTitle: "สแกน QR เพื่อเลี้ยงกาแฟ",
+      qrBadge: "พร้อมเพย์ • PromptPay / Thai QR",
+      amountLabel: "ยอดสนับสนุน:",
+      qrNote: "สแกนได้ทุกแอปธนาคารในประเทศไทย",
+      bankName: "ธนาคารกรุงไทย (KTB)",
+      bankType: "พร้อมเพย์ / Thai QR",
+      bankSecure: "ปลอดภัย 100%",
+      doneBtn: "โอนเงินเรียบร้อยแล้ว (ขอบพระคุณครับ)",
+      backBtn: "เปลี่ยนยอดเงิน / จำนวนแก้ว",
+      toastThanks: "กราบขอบพระคุณที่ร่วมเลี้ยงกาแฟทีมงานหนังสือสั่งดีครับ! ขอให้ท่านและครอบครัวมีความสุข สุขภาพแข็งแรงครับ! ☕✨"
     }
   },
 
@@ -405,6 +437,38 @@ const TRANSLATIONS = {
       adLabel: "Sponsor Ad",
       closeBtn: "Hide Banner",
       mockText: "Support the 'Good Order Book' project to keep end-of-life planning free and accessible for all."
+    },
+
+    coffee: {
+      btnLabel: "Buy Coffee",
+      btnBadge: "40฿",
+      pillText: "Support the Project",
+      title: "Buy Us a Coffee (Good Order Book)",
+      subtitle: "Good Order Book is 100% free and processes your Living Will privately offline. You can support our team with a cup of coffee at 40 THB (~$1.10) to help cover maintenance and server costs.",
+      selectLabel: "☕ Choose coffee cups (40 THB per cup):",
+      cups1: "1 Cup",
+      cups2: "2 Cups",
+      cups3: "3 Cups",
+      cups4: "4 Cups",
+      cups5: "5 Cups",
+      cupsOther: "Custom",
+      customPrice: "Custom",
+      customPlaceholder: "Enter amount (THB)",
+      donorNameLabel: "Your Name (Optional):",
+      donorNamePlaceholder: "e.g., Supporter, Anonymous",
+      donorMsgLabel: "Message of Encouragement (Optional):",
+      donorMsgPlaceholder: "e.g., Thank you for this wonderful initiative!",
+      submitBtn: "Proceed to QR Payment",
+      qrTitle: "Scan QR to Buy Us a Coffee",
+      qrBadge: "PromptPay • Thai QR Payment",
+      amountLabel: "Support Amount:",
+      qrNote: "Supports all Thai Banking & Payment Apps",
+      bankName: "Krungthai Bank (KTB)",
+      bankType: "PromptPay / Thai QR",
+      bankSecure: "100% Secure",
+      doneBtn: "Transfer Completed (Thank you!)",
+      backBtn: "Change Amount / Cup Count",
+      toastThanks: "Thank you so much for supporting Good Order Book! Wishing you and your family good health and peace! ☕✨"
     }
   }
 };

@@ -191,7 +191,41 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (elements.prevBtn) elements.prevBtn.textContent = `← ${t.form.prevBtn}`;
       if (elements.nextBtn) elements.nextBtn.textContent = `${t.form.nextBtn} →`;
-      if (elements.generateBtn) elements.generateBtn.textContent = t.form.generateBtn;
+      // เรนเดอร์ข้อความระบบเลี้ยงกาแฟ
+      if (t.coffee) {
+        const c = t.coffee;
+        const setTxt = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+        setTxt("coffeeBtnLabel", c.btnLabel);
+        setTxt("coffeePillText", c.pillText);
+        setTxt("coffeeTitle", c.title);
+        setTxt("coffeeSubtitle", c.subtitle);
+        setTxt("coffeeSelectLabel", c.selectLabel);
+        setTxt("cup1Name", c.cups1);
+        setTxt("cup2Name", c.cups2);
+        setTxt("cup3Name", c.cups3);
+        setTxt("cup4Name", c.cups4);
+        setTxt("cup5Name", c.cups5);
+        setTxt("cupOtherName", c.cupsOther);
+        setTxt("cupOtherPrice", c.customPrice);
+        setTxt("coffeeDonorNameLabel", c.donorNameLabel);
+        setTxt("coffeeDonorMessageLabel", c.donorMsgLabel);
+        setTxt("coffeeQRTitle", c.qrTitle);
+        setTxt("coffeeAmountLabel", c.amountLabel);
+        setTxt("coffeeQRNote", c.qrNote);
+        setTxt("coffeeDoneBtnText", c.doneBtn);
+        setTxt("coffeeBackBtnText", c.backBtn);
+
+        const donorName = document.getElementById("coffeeDonorName");
+        if (donorName) donorName.placeholder = c.donorNamePlaceholder;
+        const donorMsg = document.getElementById("coffeeDonorMessage");
+        if (donorMsg) donorMsg.placeholder = c.donorMsgPlaceholder;
+        const customAmount = document.getElementById("coffeeCustomAmount");
+        if (customAmount) customAmount.placeholder = c.customPlaceholder;
+
+        const submitBtnText = document.getElementById("coffeeSubmitBtnText");
+        const price = (typeof selectedCoffeePrice !== "undefined") ? selectedCoffeePrice : 40;
+        if (submitBtnText) submitBtnText.textContent = `${state.currentLang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment"} ฿${price}`;
+      }
 
       // เรนเดอร์ขั้นตอนปัจจุบัน
       renderCurrentStep();
@@ -1172,6 +1206,171 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }
   }
+
+  /* ==========================================================================
+     COFFEE DONATION SYSTEM (ระบบเลี้ยงกาแฟ 40 บาท)
+     ========================================================================== */
+  let selectedCoffeeCups = 1;
+  let selectedCoffeePrice = 40;
+  const COFFEE_PRICE_PER_CUP = 40;
+
+  window.openCoffeeModal = function() {
+    selectCoffeeCount(1, 40);
+    const modal = document.getElementById("coffeeModal");
+    if (!modal) return;
+    const step1 = document.getElementById("coffeeStep1");
+    const step2 = document.getElementById("coffeeStep2");
+    if (step1) step1.style.display = "block";
+    if (step2) step2.style.display = "none";
+    modal.style.display = "flex";
+  };
+
+  window.closeCoffeeModal = function() {
+    const modal = document.getElementById("coffeeModal");
+    if (!modal) return;
+    modal.style.display = "none";
+  };
+
+  window.selectCoffeeCount = function(cups, price) {
+    selectedCoffeeCups = cups;
+    selectedCoffeePrice = price;
+
+    const buttons = document.querySelectorAll(".coffee-option-btn");
+    buttons.forEach((btn, index) => {
+      if (index === cups - 1 && cups <= 5) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    const customWrap = document.getElementById("coffeeCustomInputContainer");
+    if (customWrap) customWrap.style.display = "none";
+
+    const submitText = document.getElementById("coffeeSubmitBtnText");
+    const lang = state ? state.currentLang : "th";
+    const prefix = lang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment";
+    if (submitText) submitText.textContent = `${prefix} ฿${price}`;
+  };
+
+  window.selectCoffeeOther = function() {
+    const buttons = document.querySelectorAll(".coffee-option-btn");
+    buttons.forEach((btn, index) => {
+      if (index === 5) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+
+    const customWrap = document.getElementById("coffeeCustomInputContainer");
+    if (customWrap) {
+      customWrap.style.display = "block";
+      const customInput = document.getElementById("coffeeCustomAmount");
+      if (customInput) {
+        customInput.focus();
+        updateCustomCoffeeAmount();
+      }
+    }
+  };
+
+  window.updateCustomCoffeeAmount = function() {
+    const input = document.getElementById("coffeeCustomAmount");
+    const val = input ? parseInt(input.value, 10) : 40;
+    selectedCoffeePrice = (val && val > 0) ? val : 40;
+    const submitText = document.getElementById("coffeeSubmitBtnText");
+    const lang = state ? state.currentLang : "th";
+    const prefix = lang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment";
+    if (submitText) submitText.textContent = `${prefix} ฿${selectedCoffeePrice}`;
+  };
+
+  window.goToCoffeeQRStep = function() {
+    const displayAmount = document.getElementById("coffeeDisplayAmount");
+    if (displayAmount) displayAmount.textContent = `฿${selectedCoffeePrice}`;
+    const step1 = document.getElementById("coffeeStep1");
+    const step2 = document.getElementById("coffeeStep2");
+    if (step1) step1.style.display = "none";
+    if (step2) step2.style.display = "block";
+
+    // Track analytics event
+    if (typeof window.Analytics !== "undefined" && window.Analytics.track) {
+      window.Analytics.track("coffee_qr_view", { amount: selectedCoffeePrice, cups: selectedCoffeeCups });
+    }
+  };
+
+  window.backToCoffeeStep1 = function() {
+    const step1 = document.getElementById("coffeeStep1");
+    const step2 = document.getElementById("coffeeStep2");
+    if (step2) step2.style.display = "none";
+    if (step1) step1.style.display = "block";
+  };
+
+  window.confirmCoffeeTransfer = function() {
+    closeCoffeeModal();
+
+    // จุดพลุเฉลิมฉลอง (Confetti celebration)
+    if (typeof confetti === "function") {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ["#ffd700", "#f59e0b", "#10b981", "#ffffff", "#0284c7"]
+      });
+    }
+
+    const donorNameInput = document.getElementById("coffeeDonorName");
+    const donorMsgInput = document.getElementById("coffeeDonorMessage");
+    const customAmountInput = document.getElementById("coffeeCustomAmount");
+
+    const name = donorNameInput ? donorNameInput.value.trim() : "";
+    const lang = state ? state.currentLang : "th";
+    const t = window.TRANSLATIONS[lang].coffee;
+
+    let toastMessage = t ? t.toastThanks : "กราบขอบพระคุณที่ร่วมเลี้ยงกาแฟครับ! ☕✨";
+    if (name) {
+      toastMessage = (lang === "th")
+        ? `กราบขอบพระคุณ คุณ${name} ที่ร่วมเลี้ยงกาแฟทีมงานหนังสือสั่งดีครับ! ☕✨`
+        : `Thank you so much, ${name}, for supporting Good Order Book! ☕✨`;
+    }
+
+    showCoffeeToast(toastMessage);
+
+    // Track analytics event
+    if (typeof window.Analytics !== "undefined" && window.Analytics.track) {
+      window.Analytics.track("coffee_completed", { amount: selectedCoffeePrice, donor: name || "anonymous" });
+    }
+
+    // Reset inputs
+    if (donorNameInput) donorNameInput.value = "";
+    if (donorMsgInput) donorMsgInput.value = "";
+    if (customAmountInput) customAmountInput.value = "";
+  };
+
+  function showCoffeeToast(msg) {
+    const toast = document.getElementById("coffeeToast");
+    const toastMsg = document.getElementById("coffeeToastMsg");
+    if (!toast || !toastMsg) return;
+    toastMsg.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 4500);
+  }
+
+  // ปิด modal เมื่อคลิกพื้นที่ว่างรอบนอก
+  document.addEventListener("click", (e) => {
+    const coffeeModal = document.getElementById("coffeeModal");
+    if (coffeeModal && e.target === coffeeModal) {
+      closeCoffeeModal();
+    }
+  });
+
+  // ปิด modal เมื่อกดปุ่ม Escape
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeCoffeeModal();
+    }
+  });
 
   // เริ่มต้นทำงาน
   renderLanguage();

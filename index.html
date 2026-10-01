@@ -31,7 +31,7 @@
        crossorigin="anonymous"></script>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=20260921_0920">
+  <link rel="stylesheet" href="css/style.css?v=20261001_1615">
 </head>
 <body>
 
@@ -196,11 +196,146 @@
     </div>
   </div>
 
+  <!-- FLOATING COFFEE SUPPORT BUTTON -->
+  <div class="floating-coffee-wrap" id="floatingCoffeeWrap">
+    <button type="button" class="floating-coffee-btn" id="openCoffeeBtn" onclick="openCoffeeModal()" title="เลี้ยงกาแฟผู้พัฒนา">
+      <span class="coffee-btn-icon">☕</span>
+      <span class="coffee-btn-label" id="coffeeBtnLabel">เลี้ยงกาแฟ</span>
+      <span class="coffee-btn-badge">40฿</span>
+    </button>
+  </div>
+
+  <!-- COFFEE DONATION MODAL (ระบบเลี้ยงกาแฟ 40 บาท) -->
+  <div class="modal-overlay" id="coffeeModal" style="display: none;">
+    <div class="modal-card coffee-modal-card">
+      <button type="button" class="coffee-modal-close" onclick="closeCoffeeModal()" title="ปิดหน้าต่าง">✕</button>
+
+      <!-- Step 1: เลือกจำนวนแก้ว -->
+      <div id="coffeeStep1">
+        <div class="coffee-modal-header">
+          <div class="coffee-badge-pill">☕ <span id="coffeePillText">สนับสนุนผู้พัฒนา</span></div>
+          <h3 class="coffee-title" id="coffeeTitle">เลี้ยงกาแฟ "หนังสือสั่งดี"</h3>
+          <p class="coffee-subtitle" id="coffeeSubtitle">
+            เว็บไซต์หนังสือสั่งดีเปิดให้สร้างเอกสารฟรี 100% ปลอดภัยบนเครื่องของคุณ<br>
+            ร่วมเลี้ยงกาแฟทีมงานแก้วละ 40 บาท เพื่อเป็นกำลังใจและสนับสนุนค่าดูแลระบบครับ
+          </p>
+        </div>
+
+        <div class="coffee-selection-wrap">
+          <label class="coffee-label" id="coffeeSelectLabel">☕ เลือกจำนวนแก้วกาแฟ (แก้วละ 40 บาท):</label>
+          <div class="coffee-grid" id="coffeeOptionsGrid">
+            <button type="button" onclick="selectCoffeeCount(1, 40)" class="coffee-option-btn active">
+              <span class="coffee-cup-icon">☕</span>
+              <span class="coffee-cup-name" id="cup1Name">1 แก้ว</span>
+              <span class="coffee-cup-price">฿40</span>
+            </button>
+            <button type="button" onclick="selectCoffeeCount(2, 80)" class="coffee-option-btn">
+              <span class="coffee-cup-icon">☕</span>
+              <span class="coffee-cup-name" id="cup2Name">2 แก้ว</span>
+              <span class="coffee-cup-price">฿80</span>
+            </button>
+            <button type="button" onclick="selectCoffeeCount(3, 120)" class="coffee-option-btn">
+              <span class="coffee-cup-icon">☕</span>
+              <span class="coffee-cup-name" id="cup3Name">3 แก้ว</span>
+              <span class="coffee-cup-price">฿120</span>
+            </button>
+            <button type="button" onclick="selectCoffeeCount(4, 160)" class="coffee-option-btn">
+              <span class="coffee-cup-icon">☕</span>
+              <span class="coffee-cup-name" id="cup4Name">4 แก้ว</span>
+              <span class="coffee-cup-price">฿160</span>
+            </button>
+            <button type="button" onclick="selectCoffeeCount(5, 200)" class="coffee-option-btn">
+              <span class="coffee-cup-icon">☕</span>
+              <span class="coffee-cup-name" id="cup5Name">5 แก้ว</span>
+              <span class="coffee-cup-price">฿200</span>
+            </button>
+            <button type="button" onclick="selectCoffeeOther()" class="coffee-option-btn" id="coffeeOtherBtn">
+              <span class="coffee-cup-icon">✨</span>
+              <span class="coffee-cup-name" id="cupOtherName">อื่นๆ</span>
+              <span class="coffee-cup-price" id="cupOtherPrice">ระบุเอง</span>
+            </button>
+          </div>
+
+          <!-- Custom Amount Input (ซ่อนไว้ เริ่มต้น) -->
+          <div id="coffeeCustomInputContainer" class="coffee-custom-input-wrap" style="display: none;">
+            <div class="coffee-input-prefix">฿</div>
+            <input type="number" id="coffeeCustomAmount" placeholder="ระบุจำนวนเงิน (บาท)" min="1" oninput="updateCustomCoffeeAmount()" />
+          </div>
+        </div>
+
+        <div class="coffee-inputs-group">
+          <div>
+            <label class="coffee-sublabel" id="coffeeDonorNameLabel">ชื่อผู้สนับสนุน (ไม่ระบุก็ได้):</label>
+            <input type="text" id="coffeeDonorName" class="form-input" placeholder="เช่น คุณเบิร์ด, ผู้ไม่ประสงค์ออกนาม" maxlength="50" />
+          </div>
+          <div>
+            <label class="coffee-sublabel" id="coffeeDonorMessageLabel">ข้อความส่งกำลังใจ (ไม่ระบุก็ได้):</label>
+            <input type="text" id="coffeeDonorMessage" class="form-input" placeholder="เช่น ขอให้โครงการมีประโยชน์ต่อผู้คนสืบไปครับ" maxlength="150" />
+          </div>
+        </div>
+
+        <button type="button" onclick="goToCoffeeQRStep()" id="coffeeSubmitBtn" class="coffee-primary-btn">
+          <span>☕</span>
+          <span id="coffeeSubmitBtnText">ไปที่หน้าสแกนจ่าย ฿40 (พร้อมเพย์)</span>
+        </button>
+      </div>
+
+      <!-- Step 2: สแกน QR Code พร้อมเพย์ -->
+      <div id="coffeeStep2" style="display: none; text-align: center;">
+        <div class="coffee-step2-header">
+          <span class="promptpay-badge" id="coffeeQRBadge">พร้อมเพย์ • PromptPay / Thai QR</span>
+          <h4 class="coffee-title" id="coffeeQRTitle">สแกน QR เพื่อเลี้ยงกาแฟ</h4>
+          <div class="coffee-amount-pill">
+            <span class="coffee-amount-label" id="coffeeAmountLabel">ยอดสนับสนุน:</span>
+            <span class="coffee-amount-value" id="coffeeDisplayAmount">฿40</span>
+          </div>
+        </div>
+
+        <div class="coffee-qr-box">
+          <img src="assets/qr-tip.jpg" alt="Thai QR PromptPay" class="coffee-qr-img" />
+          <p class="coffee-qr-note" id="coffeeQRNote">สแกนได้ทุกแอปธนาคารในประเทศไทย</p>
+        </div>
+
+        <div class="coffee-bank-card">
+          <div class="coffee-bank-info">
+            <span class="coffee-bank-icon">🏦</span>
+            <div style="text-align: left;">
+              <p class="coffee-bank-name" id="coffeeBankName">ธนาคารกรุงไทย (KTB)</p>
+              <p class="coffee-bank-type" id="coffeeBankType">พร้อมเพย์ / Thai QR</p>
+            </div>
+          </div>
+          <span class="coffee-bank-secure" id="coffeeBankSecure">ปลอดภัย 100%</span>
+        </div>
+
+        <div class="coffee-step2-actions">
+          <button type="button" onclick="confirmCoffeeTransfer()" class="coffee-primary-btn">
+            <span>✓</span>
+            <span id="coffeeDoneBtnText">โอนเงินเรียบร้อยแล้ว (ขอบพระคุณครับ)</span>
+          </button>
+          <button type="button" onclick="backToCoffeeStep1()" class="coffee-back-btn">
+            <span>←</span>
+            <span id="coffeeBackBtnText">เปลี่ยนยอดเงิน / จำนวนแก้ว</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="coffee-toast" id="coffeeToast">
+    <span class="coffee-toast-icon">✨</span>
+    <span class="coffee-toast-msg" id="coffeeToastMsg">กราบขอบพระคุณที่ร่วมเลี้ยงกาแฟครับ!</span>
+  </div>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
   <!-- Config & Application Scripts -->
-  <script src="config.js?v=20260921_0920"></script>
-  <script src="js/analytics.js?v=20260921_0920"></script>
-  <script src="js/translations.js?v=20260921_0920"></script>
-  <script src="js/pdfEngine.js?v=20260921_0920"></script>
-  <script src="js/app.js?v=20260921_0920"></script>
+  <script src="config.js?v=20261001_1615"></script>
+  <script src="js/analytics.js?v=20261001_1615"></script>
+  <script src="js/translations.js?v=20261001_1615"></script>
+  <script src="js/pdfEngine.js?v=20261001_1615"></script>
+  <script src="js/app.js?v=20261001_1615"></script>
 </body>
 </html>
