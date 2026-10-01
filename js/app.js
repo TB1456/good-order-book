@@ -246,13 +246,21 @@ document.addEventListener("DOMContentLoaded", () => {
         setTxt("colCoffeeBankName", c.bankName);
         setTxt("colCoffeeBankType", c.bankType);
         setTxt("colCoffeeBankSecure", c.bankSecure);
+        setTxt("colCoffeeQRTitle", c.qrTitle);
         setTxt("colCoffeeDoneBtnText", c.doneBtn);
+        setTxt("colCoffeeBackBtnText", c.backBtn);
+
+        const colSubmitBtnText = document.getElementById("colCoffeeSubmitBtnText");
+        const colPrice = (typeof selectedColCoffeePrice !== "undefined") ? selectedColCoffeePrice : 40;
+        if (colSubmitBtnText) {
+          colSubmitBtnText.textContent = `${state.currentLang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment"} ฿${colPrice} (พร้อมเพย์)`;
+        }
 
         const colDonorName = document.getElementById("colCoffeeDonorName");
-        if (colDonorName) colDonorName.placeholder = c.donorNamePlaceholder;
         const colDonorMsg = document.getElementById("colCoffeeDonorMessage");
-        if (colDonorMsg) colDonorMsg.placeholder = c.donorMsgPlaceholder;
         const colCustomAmount = document.getElementById("colCoffeeCustomAmount");
+        if (colDonorName) colDonorName.placeholder = c.donorNamePlaceholder;
+        if (colDonorMsg) colDonorMsg.placeholder = c.donorMsgPlaceholder;
         if (colCustomAmount) colCustomAmount.placeholder = c.customPlaceholder;
       }
 
@@ -1411,6 +1419,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const displayAmount = document.getElementById("colCoffeeDisplayAmount");
     if (displayAmount) displayAmount.textContent = `฿${price}`;
+
+    const submitText = document.getElementById("colCoffeeSubmitBtnText");
+    const lang = state ? state.currentLang : "th";
+    const prefix = lang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment";
+    if (submitText) submitText.textContent = `${prefix} ฿${price} (พร้อมเพย์)`;
   };
 
   window.selectColCoffeeOther = function() {
@@ -1441,6 +1454,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const displayAmount = document.getElementById("colCoffeeDisplayAmount");
     if (displayAmount) displayAmount.textContent = `฿${selectedColCoffeePrice}`;
+
+    const submitText = document.getElementById("colCoffeeSubmitBtnText");
+    const lang = state ? state.currentLang : "th";
+    const prefix = lang === "th" ? "ไปที่หน้าสแกนจ่าย" : "Proceed to QR Payment";
+    if (submitText) submitText.textContent = `${prefix} ฿${selectedColCoffeePrice} (พร้อมเพย์)`;
+  };
+
+  window.goToColCoffeeQRStep = function() {
+    const displayAmount = document.getElementById("colCoffeeDisplayAmount");
+    if (displayAmount) displayAmount.textContent = `฿${selectedColCoffeePrice}`;
+
+    const step1 = document.getElementById("colCoffeeStep1");
+    const step2 = document.getElementById("colCoffeeStep2");
+    if (step1) step1.style.display = "none";
+    if (step2) step2.style.display = "block";
+
+    // Track analytics event
+    if (typeof window.Analytics !== "undefined" && window.Analytics.track) {
+      window.Analytics.track("coffee_col_qr_view", { amount: selectedColCoffeePrice, cups: selectedColCoffeeCups });
+    }
+  };
+
+  window.backToColCoffeeStep1 = function() {
+    const step1 = document.getElementById("colCoffeeStep1");
+    const step2 = document.getElementById("colCoffeeStep2");
+    if (step2) step2.style.display = "none";
+    if (step1) step1.style.display = "block";
   };
 
   window.confirmColCoffeeTransfer = function() {
@@ -1480,6 +1520,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (donorNameInput) donorNameInput.value = "";
     if (donorMsgInput) donorMsgInput.value = "";
     if (customAmountInput) customAmountInput.value = "";
+
+    // สลับกลับมาหน้า Step 1 เพื่อความเรียบร้อย
+    backToColCoffeeStep1();
+    selectColCoffeeCount(1, 40);
   };
 
   function showCoffeeToast(msg) {
