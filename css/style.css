@@ -1631,6 +1631,41 @@ body {
   gap: 0.5rem;
 }
 
+.coffee-secondary-btn {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #475569;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  border-radius: 0.75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.coffee-secondary-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.coffee-qr-instruction {
+  font-size: 0.82rem;
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px dashed #fcd34d;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  margin: 0 auto 0.85rem;
+  line-height: 1.45;
+}
+
 .coffee-back-btn {
   background: transparent;
   border: none;

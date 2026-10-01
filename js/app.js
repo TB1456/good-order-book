@@ -247,8 +247,10 @@ document.addEventListener("DOMContentLoaded", () => {
         setTxt("colCoffeeBankType", c.bankType);
         setTxt("colCoffeeBankSecure", c.bankSecure);
         setTxt("colCoffeeQRTitle", c.qrTitle);
-        setTxt("colCoffeeDoneBtnText", c.doneBtn);
+        setTxt("colCoffeeQRInstruction", c.qrInstruction);
+        setTxt("coffeeQRInstruction", c.qrInstruction);
         setTxt("colCoffeeBackBtnText", c.backBtn);
+        setTxt("coffeeBackBtnText", c.backBtn);
 
         const colSubmitBtnText = document.getElementById("colCoffeeSubmitBtnText");
         const colPrice = (typeof selectedColCoffeePrice !== "undefined") ? selectedColCoffeePrice : 40;

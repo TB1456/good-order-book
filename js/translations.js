@@ -233,8 +233,8 @@ const TRANSLATIONS = {
       bankName: "ธนาคารกรุงไทย (KTB)",
       bankType: "พร้อมเพย์ / Thai QR",
       bankSecure: "ปลอดภัย 100%",
-      doneBtn: "โอนเงินเรียบร้อยแล้ว (ขอบพระคุณครับ)",
-      backBtn: "เปลี่ยนยอดเงิน / จำนวนแก้ว",
+      backBtn: "เปลี่ยนยอดเงิน / เลือกจำนวนแก้ว",
+      qrInstruction: "เปิดแอปธนาคารของท่าน แล้วสแกน QR Code ด้านบนเพื่อร่วมสนับสนุนได้ทันทีครับ 🙏☕",
       toastThanks: "กราบขอบพระคุณที่ร่วมเลี้ยงกาแฟทีมงานหนังสือสั่งดีครับ! ขอให้ท่านและครอบครัวมีความสุข สุขภาพแข็งแรงครับ! ☕✨"
     }
   },
@@ -466,8 +466,8 @@ const TRANSLATIONS = {
       bankName: "Krungthai Bank (KTB)",
       bankType: "PromptPay / Thai QR",
       bankSecure: "100% Secure",
-      doneBtn: "Transfer Completed (Thank you!)",
       backBtn: "Change Amount / Cup Count",
+      qrInstruction: "Open your banking app and scan the QR code above to support us 🙏☕",
       toastThanks: "Thank you so much for supporting Good Order Book! Wishing you and your family good health and peace! ☕✨"
     }
   }

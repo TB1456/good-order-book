@@ -252,15 +252,15 @@
                 <span class="coffee-bank-secure" id="colCoffeeBankSecure">ปลอดภัย 100%</span>
               </div>
 
-              <!-- ปุ่มยืนยันโอนเงิน & ปุ่มย้อนกลับ -->
+              <div class="coffee-qr-instruction" id="colCoffeeQRInstruction">
+                เปิดแอปธนาคารของท่าน แล้วสแกน QR Code เพื่อร่วมสนับสนุนได้ทันทีครับ 🙏☕
+              </div>
+
+              <!-- ปุ่มย้อนกลับไปเปลี่ยนจำนวนแก้ว -->
               <div class="coffee-step2-actions">
-                <button type="button" onclick="confirmColCoffeeTransfer()" class="coffee-primary-btn" id="colCoffeeDoneBtn">
-                  <span>✓</span>
-                  <span id="colCoffeeDoneBtnText">โอนเงินเรียบร้อยแล้ว (ขอบพระคุณครับ)</span>
-                </button>
-                <button type="button" onclick="backToColCoffeeStep1()" class="coffee-back-btn" id="colCoffeeBackBtn">
+                <button type="button" onclick="backToColCoffeeStep1()" class="coffee-secondary-btn" id="colCoffeeBackBtn">
                   <span>←</span>
-                  <span id="colCoffeeBackBtnText">เปลี่ยนยอดเงิน / จำนวนแก้ว</span>
+                  <span id="colCoffeeBackBtnText">เปลี่ยนยอดเงิน / เลือกจำนวนแก้ว</span>
                 </button>
               </div>
             </div>
@@ -436,14 +436,14 @@
           <span class="coffee-bank-secure" id="coffeeBankSecure">ปลอดภัย 100%</span>
         </div>
 
+        <div class="coffee-qr-instruction" id="coffeeQRInstruction">
+          เปิดแอปธนาคารของท่าน แล้วสแกน QR Code เพื่อร่วมสนับสนุนได้ทันทีครับ 🙏☕
+        </div>
+
         <div class="coffee-step2-actions">
-          <button type="button" onclick="confirmCoffeeTransfer()" class="coffee-primary-btn">
-            <span>✓</span>
-            <span id="coffeeDoneBtnText">โอนเงินเรียบร้อยแล้ว (ขอบพระคุณครับ)</span>
-          </button>
-          <button type="button" onclick="backToCoffeeStep1()" class="coffee-back-btn">
+          <button type="button" onclick="backToCoffeeStep1()" class="coffee-secondary-btn" id="coffeeBackBtn">
             <span>←</span>
-            <span id="coffeeBackBtnText">เปลี่ยนยอดเงิน / จำนวนแก้ว</span>
+            <span id="coffeeBackBtnText">เปลี่ยนยอดเงิน / เลือกจำนวนแก้ว</span>
           </button>
         </div>
       </div>
