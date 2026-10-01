@@ -1597,8 +1597,21 @@ body {
   gap: 0.5rem;
 }
 
-.coffee-bank-icon {
-  font-size: 1.2rem;
+.coffee-bank-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #e0f2fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.coffee-bank-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+  fill: #00A3E0;
 }
 
 .coffee-bank-name {
